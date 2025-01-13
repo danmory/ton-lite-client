@@ -115,7 +115,7 @@ export function createLiteClientProvider(
             }
 
             // const method = await client.runMethod(address, name, args, sq)c
-            const method = await runMethod(client, sq, address, name, args)
+            const method = await runMethod(client, sq, address, name.toString(), args)
             if (method.exitCode !== 0 && method.exitCode !== 1) {
                 throw Error('Exit code: ' + method.exitCode)
             }
