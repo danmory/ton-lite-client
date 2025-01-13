@@ -10,7 +10,7 @@
 
 import { randomBytes } from "tweetnacl";
 import { TLFunction, TLReadBuffer, TLWriteBuffer } from "ton-tl";
-import { ADNLClient, ADNLClientTCP, ADNLClientWS } from "adnl";
+import { ADNLClient, ADNLClientTCP, ADNLClientWS } from "@tonappchain/adnl";
 import { Codecs, Functions } from "../schema";
 import { LiteEngine } from "./engine";
 import EventEmitter from "events";
