@@ -42,7 +42,12 @@ export class LiteSingleEngine extends EventEmitter implements LiteEngine {
         this.publicKey = args.publicKey;
         this.#clientType = args.client || 'tcp'
         this.#reconnectTimeout = args.reconnectTimeout || 10000
-        this.connect();
+    }
+
+    static async create(args: { host: string, publicKey: Buffer, client?: 'tcp' | 'ws', reconnectTimeout?: number }) {
+        const engine = new LiteSingleEngine(args);
+        await engine.connect();
+        return engine;
     }
 
     isClosed() {
@@ -111,7 +116,7 @@ export class LiteSingleEngine extends EventEmitter implements LiteEngine {
         }
     }
 
-    private connect() {
+    private async connect() {
         // Configure new client
         const client = this.#clientType === 'ws' ? new ADNLClientWS(
             this.host,
@@ -120,7 +125,7 @@ export class LiteSingleEngine extends EventEmitter implements LiteEngine {
             this.host,
             this.publicKey
         );
-        client.connect()
+        await client.connect()
         client.on('connect', () => {
             if (this.#currentClient === client) {
                 this.onConencted();
